@@ -1,15 +1,12 @@
-const problemX = "Math.sin(2*";
-const problemY = "Math.pow(";
+const problemX = "sin(2 * var)";
+const problemY = "pow(var,2)";
 const range = [-2, 2];
-const trig =
-  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!false; // POV: you only want to change 1 character on every problem
+const trig = !!!!!!!!!!!!!!!false; // POV: you only want to change 1 character on every problem
 
 /** 
 @param {string} piString - the string that is lookin' like pi/5
 */
 const evalInnerFunc = (piString) => {
-  // piString = piString.replace("pi", "Math.PI");
-  // return eval(piString);
   if (piString === "0") return 0;
 
   const split = piString.split("/");
@@ -27,18 +24,21 @@ if (trig) {
 
   numbers.forEach((num, _) => {
     const radians = evalInnerFunc(num.toString());
+    const x = `Math.${problemX.replace("var", radians)}`;
+    const y = `Math.${problemY.replace("var", radians)}`;
+
     console.log([
       `rad: ${num.replace("pi", "π")}`,
-      `x: ${round(eval(problemX + radians + ")"))}`,
-      `y: ${round(eval(problemY + radians + ",2)"))}`,
+      `x: ${round(eval(x))}`,
+      `y: ${round(eval(y))}`,
     ]);
   }); //add stuff to strings that are concatenated to "radians" if necessary
 } else {
   for (let t = range[0]; t <= range[1]; t++) {
-    const xy =
-      round(eval(problemX + t + ")")) +
-      ", " +
-      round(eval(problemY + t + ",2)")); //add stuff to strings that are concatenated to "t" if necessary
+    const x = `Math.${problemX.replace("var", t)}`;
+    const y = `Math.${problemY.replace("var", t)}`;
+
+    console.log([`${t}:`, round(eval(x)), round(eval(y))]);
   }
 }
 
@@ -72,7 +72,6 @@ function genArray() {
         case 1:
           break;
         case -1: {
-          // console.log("This is cool", div, i);
           top = "-";
           break;
         }
